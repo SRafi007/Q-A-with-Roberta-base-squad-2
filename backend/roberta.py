@@ -1,5 +1,7 @@
 from transformers import AutoModelForQuestionAnswering, AutoTokenizer, pipeline
+from fastapi import FastAPI
 
+app = FastAPI()
 model_name = "deepset/roberta-base-squad2"
 
 question = 'Why is model conversion important?'
@@ -17,3 +19,6 @@ def que_ans(question, context):
     return res
 
 
+@app.get("/") 
+async def get_answer(question, context):
+    return que_ans(question, context)
